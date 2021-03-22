@@ -1,0 +1,55 @@
+\documentclass[fullpage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+
+\title{Algorithms}
+\author{Neelam Akula}
+\date{Spring 2021}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Neelam Akula}
+\lhead{CMSC 351}
+\rfoot{Page \thepage}
+
+\begin{document}
+\makeatletter
+    \begin{titlepage}
+        \begin{center}
+            {\huge \bfseries  \@title }\\[4ex]
+            {\large  \@author}\\[4ex] 
+            {\large \@date}
+        \end{center}
+    \end{titlepage}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   Table of Contents    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\import{chapters/}{quicksort}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    Appendix Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+
+\end{document}
