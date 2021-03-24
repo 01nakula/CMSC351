@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Insertion Sort with Sentinel}
+\rule{\textwidth}{1pt}
+\subsection{Pseudocode}
+\begin{algorithm}
+\caption{Insertion Sort with Sentinel}
+\begin{algorithmic}[1]
+\State $A[0]\leftarrow -\infty$
+\For{$i=2$ \textbf{ to } $n$}
+	\State $t\leftarrow A[i]$
+	\State $j\leftarrow i-1$
+	\While{$t<A[j]$}
+		\State $A[j+1]\leftarrow A[j]$
+		\State $j\leftarrow j-1$
+	\EndWhile
+	\State $A[j+1]\leftarrow t$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Analysis of Comparisons}
+\subsubsection*{Worst Case}
+Worst case is when the array is reverse sorted, and every element must be moved.
+The while loop always decrements $j$ to zero to compare against the sentinel value.
+$$\sum_{i=2}^n i = \left(\sum_{i=1}^n i\right) -1 = \frac{(n+1)n}{2}-2 = \frac{(n+2)(n-1)}{2}$$
+\subsubsection*{Best Case}
+Best case is when the array is already sorted, there is only one comparison for each iteration
+of the for loop.
+$$\sum_{i=2}^n 1 = (n-2) + 1 = n-1$$
+\subsubsection*{Average Case}
+For average case we have to determine the probability that a given element will move.
+So we want the expected value of $\sum_{x\in X} P(x)V(x)$, where $P(x)$ is the probability
+that an element will end up a location and $V(x)$ is the number of moves.
+\begin{align*}
+	\sum_{x\in X} P(x)V(x) &= \sum_{i=2}^n \sum_{j=1}^i \frac{1}{i} \cdot (i-j+1) 
+	= \sum_{i=2}^n \frac{1}{i}\sum_{j=1}^i (i-j+1) \\
+	&= \sum_{i=2}^n \frac{1}{i}\sum_{j=1}^i j 
+	= \sum_{i=2}^n \frac{1}{i} \cdot \frac{(i+1)i}{2} \\
+	&= \sum_{i=2}^n \frac{i+1}{2} 
+	= \frac{1}{2} \sum_{i=2}^n i+1 \\
+	&= \frac{1}{2} \sum_{i=1}^n i-1+(n-1) \\
+	&= \frac{1}{2} \left(\frac{(n+1)n}{2} -1 + \frac{(n-1)2}{2}\right) \\
+	&= \frac{(n+4)(n-1)}{4}
+\end{align*}
+
+\subsection{Analysis of Exchanges}
+\subsubsection*{Worst Case}
+Worst case is two moves for each iteration of outer loop plus worst case number of comparisons,
+minus the time when the comparison is false at the end. A shortcut of this is at each iteration
+we do one more move than comparison, so take the value we got above and add the number of loop
+iterations.
+$$\frac{(n+2)(n-1)}{2} + n$$ 
+\subsubsection*{Best Case}
+Best case is one initial move in the assignment on line 1 and then two moves during each iteration
+of the for loop. So we get,
+$$1+ 2(n-1) = 2n -1$$
+\subsubsection*{Average Case}
+Average case is whenever there is a comparison there is a move except for the single instance
+in each iteration of when it evaluates to false. Thus the analysis method is the same as 
+worst case.
+$$\frac{(n+4)(n-1)}{4} + n$$
+
+\end{document}

@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Insertion Sort without Sentinel}
+\rule{\textwidth}{1pt}
+\subsection{Pseudocode}
+\begin{algorithm}
+\caption{Insertion Sort without Sentinel}
+\begin{algorithmic}[1]
+\For{$i=2$ \textbf{ to } $n$}
+	\State $t\leftarrow A[i]$
+	\State $j\leftarrow i-1$
+	\While{$j>0$ and $A[j]>t$}
+		\State $A[j+1]\leftarrow A[j]$
+		\State $j\leftarrow j-1$
+	\EndWhile
+	\State $A[j+1]\leftarrow t$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Analysis of Comparisons}
+\subsubsection*{Worst Case}
+Worst case is when the array is reverse sorted, and every $i$th iteration of the loop
+must compare against all previous $(i-1)$ elements.
+\begin{align*}
+	\sum_{i=2}^{n}\sum_{j-1}^{i-1} 1 &= \sum_{i=2}^n (i-1) = \sum_{i=2}^n i - \sum_{i=2}^n 1 \\
+	&= \frac{(n+1)n}{2} - (1-(n-1)) \\
+	&= \frac{(n-1)n}{2}
+\end{align*}
+\subsubsection*{Best Case}
+Best case is when the array is already sorted, so there will just be $1$ comparison per iteration
+of the outermost loop. (Same as Insertion Sort with Sentinel.)
+$$\sum_{i=2}^n 1 = (n-2)+1 = n-1$$
+\subsubsection*{Average Case}
+On average, the sentinel costs $\sum_{i=2}^n \frac{1}{i}$ comparisons. This is simply just the
+Harmonic Series. In other words, the sentinel costs $H_n -1$ comparisons, so Insertion Sort without
+Sentinel is
+$$\frac{(n+4)(n-1)}{4}-(H_n -1) \approx \frac{(n+4)(n-1)}{4} - \ln n$$
+
+\subsection{Analysis of Exchanges}
+Removing the sentinel adds no new exchanges so the best, worst, and average cases are all the same
+as Insertion Sort with Sentinel.
+
+\end{document}

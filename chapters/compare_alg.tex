@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Comparison of Sorting Algorithms}
+\rule{\textwidth}{1pt}
+\subsection{Temporal and Spatial Locality}
+\subsubsection*{Temporal}
+Temporal locality is dependent on how many variables you have and often
+you have to replace them.
+\begin{center}
+	\begin{algorithmic}
+		\State $sum \leftarrow 0$
+		\State $j \leftarrow 1$
+		\For{$i=1$ \textbf{to} $10$}
+			\State $sum \leftarrow sum +j$
+			\State $j \leftarrow j+j$
+		\EndFor
+	\end{algorithmic}
+\end{center}
+The above program has good temporal locality if there are three registers, 
+but bad temporal locality if there are only two registers (there are three unique
+variables in the program above so anything with less than three avaliable registers
+will have bad temporal locality).
+
+\subsubsection*{Spatial}
+If a particular storage location is referenced at a particular time, then it is likely that
+nearby memory locations will be referenced in the near future. In this case it is common 
+to attempt to guess the size and shape of the area around the current reference for what it is
+worthwhile to prepare faster access for subsequent reference.
+
+\subsection{Comparison Table}
+
+\begin{table}[!htb]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{c|cccccccc}
+		Algorithm      & Worst Comp. & Avg. Comp. & Worst Moves & Avg. Moves & Worst Exch. & Avg. Exch. & In Place & Spatial Locality \\ \hline
+		Bubble Sort    & $n^2 / 2$ & $n^2 / 2$ &  &  & $n^2 / 2$ & $n^2 / 2$ & Yes & Yes \\ \hline
+		Insertion Sort & $n^2 / 2$ & $n^2 / 4$ & $n^2 / 2$ & $n^2 / 4$ &  &  & Yes & Yes \\ \hline
+		Selection Sort & $n^2 / 2$ & $n^2 / 2$ &  &  & $n$ & $n$ & Yes & Yes \\ \hline
+		Mergesort      & $n\lg n$ & $n\lg n$ & ? & ? &  &  & Y/N & Yes \\ \hline
+		Heapsort       & "$n\lg n$" & $n\lg n$ & "$n\lg n$" & $n\lg n$ &  &  & Yes & No \\ \hline
+		Quicksort      & $n^2 / 2$ & $1.4n\lg n$ & ? & ? &  &  & Yes & Yes
+		\end{tabular}
+	}
+\end{table}
+
+\end{document}

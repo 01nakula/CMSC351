@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Maximum Subarray Problem}
+\rule{\textwidth}{1pt}
+Given an array of numbers (either positive or negative), we wish to calculate
+the subset of consecutive numbers whose sum is largest.
+$$A:\fbox{3}\fbox{2}\fbox{-4}\fbox{-5} \underbrace{\fbox{6}\fbox{1}\fbox{-3}\fbox{7}}_{\text{sums to } 11}
+\fbox{-8}\fbox{2}$$
+In this example, we see that the maximum sum is $11$ with the indecies of the subarray
+being $A[5]:A[8]$.
+
+\subsection{Cubic Time}
+\subsubsection*{Pseudocode}
+\begin{algorithm}
+\caption{Maximum Continguous Sum (\textit{Cubic})}
+\label{algorithm:MCSc}
+\begin{algorithmic}[1]
+\State $M\leftarrow 0$
+\For{$i=1$ \textbf{to} $n$}
+	\For{$j=i$ \textbf{to} $n$}
+		\State $S\leftarrow 0$
+		\For{$k=i$ \textbf{to} $j$}
+			\State $S \leftarrow S + A[k]$
+		\EndFor
+		\State $M\leftarrow$\Call{max}{$M,S$}
+	\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+\subsubsection*{Analysis}
+From our algorithm above we can get the following analysis for it's complexity.
+\begin{align*}
+	\sum_{i=1}^{n} \sum_{j=i}^{n} \sum_{k=i}^{j} 1 &= \sum_{i=1}^{n} \sum_{j=i}^{n} j-i+1 \\
+	&= \sum_{i=1}^{n} \sum_{j=1}^{n-i+1} j \\
+	&= \sum_{i=1}^{n} \frac{(n-i+1)(n-i+2)}{2} \\
+	&= \frac{1}{2} \sum_{i=1}^{n} (n-i+1)(n-i+2) \\
+	&= \frac{1}{2} \sum_{n-i+1=1}^{n} i(i+1) \\
+	&= \frac{1}{2} \frac{n(n+1)(n+2)}{3}
+\end{align*}
+From this, we can see this first version of our algorithm is $\Theta(n^3)$ or cubic time.
+
+\subsection{Quadratic Time}
+\subsubsection*{Pseudocode}
+\setcounter{algorithm}{0}
+\begin{algorithm}
+\caption{Maximum Continguous Sum (\textit{Quadratic})}
+\label{algorithm:MCSq}
+\begin{algorithmic}[1]
+\State $M\leftarrow 0$
+\For{$i=1$ \textbf{to} $n$}
+	\State $S\leftarrow 0$
+	\For{$j=i$ \textbf{to} $n$}
+		\State $S\leftarrow S + A[j]$
+		\State $M\leftarrow$\Call{max}{$M,S$}
+	\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection*{Analysis}
+We then use sums to analyze this algorithm.
+\begin{align*}
+	\sum_{i=1}^{n} \sum_{j=i}^{n} 1 &= \sum_{i=1}^{n} n-i+1 \\
+	&= \sum_{i=1}^{n} i \\
+	&= \frac{n(n+1)}{2}
+\end{align*}
+So this more efficient version is $\Theta(n^2)$ or quadratic time.
+
+\subsection{Linear Time}
+Using dynamic programming we can improve on this algorithm even further.
+Conceptually, the maximum sum is just the previous maximum sum plus the current value.
+\subsubsection*{Pseudocode}
+\setcounter{algorithm}{0}
+\begin{algorithm}
+\caption{Maximum Continguous Sum (\textit{Linear})}
+\label{algorithm:MCSq}
+\begin{algorithmic}[1]
+\State $M\leftarrow 0$
+\State $S\leftarrow 0$
+\For{$i=1$ \textbf{to} $n$}
+	\State $S\leftarrow$\Call{max}{$S+A[i], 0$}
+	\State $M\leftarrow$\Call{max}{$M, S$}
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection*{Analysis}
+It follows that this algorithm is $\Theta(n)$ or linear time. Correctness of this
+algorithm stems from proof by induction on $S\leftarrow$\Call{max}{$S+A[i],0$},
+as this is the loop invariant.
+
+\end{document}

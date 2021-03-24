@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Selection Sort}
+\rule{\textwidth}{1pt}
+\subsection{Pseudocode}
+\begin{algorithm}
+\caption{Selection Sort}
+\begin{algorithmic}[1]
+\For{$i=n$ \textbf{ down to } $2$}
+	\State $k\leftarrow 1$
+	\For{$j=2$ \textbf{ to } $i$}
+		\If{$A[j] > A[k]$}
+			\State $k\leftarrow j$
+		\EndIf
+	\EndFor
+	\State $A[k]\leftrightarrow A[i]$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Analysis of Comparisons}
+The number of comparisons is constant regardless of the state of the array.
+$$\sum_{i=2}^n \sum_{j=2}^i 1 = \sum_{i=2}^n (i-1) = \frac{(n-1)}{n}$$
+
+\subsection{Analysis of Exchanges}
+Selection sort only performs one exchange per each iteration of the outermost loop,
+so there is a total of $n-1$ exchanges.
+
+\end{document}

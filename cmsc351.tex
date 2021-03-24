@@ -28,9 +28,12 @@
     \begin{titlepage}
         \begin{center}
             {\huge \bfseries  \@title }\\[4ex]
+            \includegraphics[width=2in]{umd_cs.jpg}\\[4ex]
             {\large  \@author}\\[4ex] 
             {\large \@date}
         \end{center}
+        \vfill
+        Last Updated: \today
     \end{titlepage}
 \makeatother
 
@@ -43,13 +46,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%     Chapter Content    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\import{chapters/}{max_subarr}
+\newpage
+% QUADRATIC ALGORITHMS %
+\import{chapters/}{bubble}
+\newpage
+\import{chapters/}{insertion}
+\newpage
+\import{chapters/}{insertion2}
+\newpage
+\import{chapters/}{selection}
+\newpage
+% RECURRENCES %
+\import{chapters/}{merge}
+\newpage
+\import{chapters/}{heap}
+\newpage
+\import{chapters/}{int_arith}
+\newpage
 \import{chapters/}{quicksort}
 \newpage
+% LINEAR ALGORITHMS %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%    Appendix Content    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
+\import{chapters/}{compare_alg}
 
 
 \end{document}

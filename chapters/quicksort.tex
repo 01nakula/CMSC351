@@ -23,10 +23,11 @@
 %%     Chapter Content    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Quicksort}
+\rule{\textwidth}{1pt}
 \subsection{Pseudocode}
 \begin{algorithm}
 \caption{Quicksort}
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \Procedure{quicksort}{$A, p, r$}
 	\If{$p<r$}
 		\State $q\leftarrow$ \Call{partition}{$A, p, r$}
@@ -80,16 +81,14 @@ is between the first/last and median index (here $q$ will represent the \textit{
 	\end{tikzpicture}
 \end{center}
 
-\subsubsection{Worst Case:}
-\rule{\textwidth}{1pt}
+\subsubsection*{Worst Case}
 	As a recurrence,
 	\begin{align*}
 		T(n) &= T(n-1) + n-1, \hspace{3mm} T(0)=T(1)=0 \\
 		&= \sum_{i=1}^{n-1} i = \frac{(n-1)n}{2}
 	\end{align*}
 
-\subsubsection{Best Case:}
-\rule{\textwidth}{1pt}
+\subsubsection*{Best Case}
 	As a recurrence,
 	\begin{align*}
 		T(n) &= 2T\left(\frac{n}{2}\right) + n-1, \hspace{3mm} T(0)=T(1)=0 \\
@@ -97,8 +96,7 @@ is between the first/last and median index (here $q$ will represent the \textit{
 	\end{align*}
 	Note: This is the same recurrence as Mergesort!
 
-\subsubsection{Average Case:}
-\rule{\textwidth}{1pt}
+\subsubsection*{Average Case}
 	As a recurrence,
 	\begin{align*}
 		T(n) &= T\left(\frac{n}{4}\right) + T\left(\frac{3n}{4}\right) + n-1, \hspace{3mm} T(0)=T(1)=0 %\\
@@ -124,8 +122,7 @@ is between the first/last and median index (here $q$ will represent the \textit{
 	Thus, 
 	$$T(n) \lesssim 1.23 n\lg n$$
 
-\subsubsection{True Average Case:}
-\rule{\textwidth}{1pt}
+\subsubsection*{Exact Average Case}
 	As a recurrence,
 	\begin{align*}
 		T(n) &= \left[\sum_{q=1}^{n} \frac{1}{n} \Big(T(q-1) + T(n-q)\Big)\right] + n-1, \hspace{3mm} T(0)=T(1)=0 \\
@@ -164,8 +161,7 @@ is between the first/last and median index (here $q$ will represent the \textit{
 	\textbf{Theorem}\\
 	\textit{The expected number of comparisons for Quicksort is $\approx 2n\ln n$.}
 
-\subsubsection{Blum's Exact Average Case:}
-	\rule{\textwidth}{1pt}
+\subsubsection*{Blum's Exact Average Case}
 	Let $P(i,j)$ be the probability that the $i$th smallest and $j$th smallest elements are compared. \\\\
 	\textbf{Theorem}\\
 	\textit{The average number of comparisons for quicksort is}
@@ -188,7 +184,6 @@ is between the first/last and median index (here $q$ will represent the \textit{
 
 \subsection{Comments}
 \subsubsection*{Quicksort Code}
-\rule{\textwidth}{1pt}
 Recall the Quicksort procedure,
 \begin{algorithmic}
 	\Procedure{quicksort}{$A, p, r$}
@@ -202,7 +197,6 @@ Recall the Quicksort procedure,
 When executing quicksort$(A, p, q-1)$ we must stack up quicksort$(A,q+1, r)$ to be executed later.
 We need to store the pair of index values $(q+1, r)$.
 \subsubsection*{Stack in Action}
-\rule{\textwidth}{1pt}
 The left table represents the pivot being the largest element, and the right
 table represents the pivot being the smallest element.
 \begin{table}[!htb]
@@ -221,7 +215,6 @@ table represents the pivot being the smallest element.
 When the pivot is the smallest element the stack remains very small
 but if the pivot is the largest element we stack $n-1$ problems to do later.
 \subsubsection*{In Place}
-\rule{\textwidth}{1pt}
 On average, height of the stack for Quicksort is $\Theta (\log n)$.
 Height of stack for Mergesort is $\lg n + O(1)$. \\\\
 \textbf{Definition:}
@@ -231,7 +224,7 @@ A more technical definition is;
 An algorithm is \textit{in place} if it uses at most $O(1)$ extra variables
 and (on average) $O\left((\log n)^2\right)$ extra bits.
 \subsubsection*{Stack}
-\rule{\textwidth}{1pt}
+
 We can modify the Quicksort procedure so that stack has height at most $\lg n$.
 \begin{algorithmic}
 	\Procedure{quicksort}{$A, p, r$}
@@ -251,7 +244,6 @@ We can modify the Quicksort procedure so that stack has height at most $\lg n$.
 Quicksort is in place, but it does not use a constant amount of extra space.
 Quicksort uses slightly more than a constant amount of extra space.
 \subsubsection*{Choice of Pivots}
-\rule{\textwidth}{1pt}
 It is risky to pivot on the last element because the last element could be
 the largest element. Some better ways could be;
 \begin{itemize}
@@ -263,7 +255,6 @@ the largest element. Some better ways could be;
 	\item Randomly permute array before starting. (Equivalent to pivoting on random element.)
 \end{itemize}
 \subsubsection*{Partitioning}
-\rule{\textwidth}{1pt}
 There are a variety of partition routines. The current edition of the textbook has a version
 that uses $n-1$ comparisons, but the previous edition of the textbook has a version which uses
 $n$ comparisons.

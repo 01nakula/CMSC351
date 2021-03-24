@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bubble Sort}
+\rule{\textwidth}{1pt}
+\subsection{Pseudocode}
+\begin{algorithm}
+\caption{Bubble Sort}
+\begin{algorithmic}[1]
+\For{$i=n$ \textbf{ down to } $2$}
+	\For{$j=1$ \textbf{ to} $i-1$}
+		\If{$A[j] > A[j+1]$}
+			\State $A[j] \leftrightarrow A[j+1]$
+		\EndIf
+	\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Analysis of Comparisons}
+Bubble Sort is designed in such a manner such that the state of the array to be listed
+does \textit{not} change the number of comparisons it makes.
+\begin{align*}
+	\sum_{i=2}^n \sum_{j=1}^{i-1}1 &= \sum_{i=2}^n i-1 \\
+	&= \sum_{i=1}^{n-1} i \\
+	&= \frac{(n-1)n}{2} = {n\choose 2}
+\end{align*}
+
+\subsection{Analysis of Exchanges}
+\subsubsection*{Worst Case}
+Worst case is when the list is reverse sorted, there will be the same number of exchanges
+as comparisons.
+$$\frac{(n-1)n}{2}$$
+\subsubsection*{Best Case}
+Best case is when the list is already sorted, in which there will be zero exchanges.
+\subsubsection*{Average Case}
+To find the average case we must count the transpositions (two elements that are out of
+order related to one another). In best case there are no transpositions, and in worst case
+there are $\frac{(n-1)n}{2}$ transpositions. In a randomly permuated array each element is
+equally likely to be out of order so the total number of average case exchanges is half the
+comparisons.
+$$\frac{1}{2} \cdot \frac{(n-1)n}{2} = \frac{(n-1)n}{4}$$
+
+
+\end{document}
