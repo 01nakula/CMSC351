@@ -13,3 +13,9 @@
 *.sta
 *.synctex.gz
 *.toc
+*.idv
+*.lg
+*.4ct
+*.4tc
+*.tmp
+*.xref

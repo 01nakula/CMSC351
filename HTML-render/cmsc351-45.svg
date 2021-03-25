@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?> 
+<?xml-stylesheet href="cmsc351.css" type="text/css"?> 
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="188.7608pt" height="105.56158pt" viewBox="-64.09355 -95.2774 188.7608 105.56158 "> 
+<g transform="translate(0, 10.28418 ) scale(1,-1) translate(0,95.2774 )"> 
+   <g stroke="#000" fill="#000">
+ <g stroke-width="0.4">
+ <g transform="translate(-9.38869,0.0)">
+ <g fill="#000">
+ <text style="stroke:none" transform="scale(1,-1) translate(9.38869,0)" text-anchor="middle"  font-size="10"> 
+<g fill="#000">
+ <g stroke="none"> 2<tspan font-family="cmmi" font-size="10">&#x03B1;</tspan><img 
+src="cmsc35192x.png" alt="n2"  class="frac" align="middle"></g> </g>
+ </text> 
+</g>
+ </g>
+ <g transform="translate(-64.09355,-95.2774)">
+ <g fill="#000">
+ <text style="stroke:none" transform="scale(1,-1) translate(96.04706,0)" text-anchor="middle"  font-size="10"> 
+<object data="cmsc351-44.svg" width="252.6801 " height="98.40604 " type="image/svg+xml"><p>SVG-Viewer needed.</p></object></text> 
+</g>
+ </g>
+ <path d=" M 0.0 -6.98137 L -54.09396 -22.0226  " fill="none"/>
+ <path d=" M 0.0 -6.98137 L -32.09479 -22.0226  " fill="none"/>
+ <path d=" M 0.0 -6.98137 L -10.09561 -22.0226  " fill="none"/>
+ <path d=" M 0.0 -6.98137 L 54.09396 -22.0226  " fill="none"/>
+ </g>
+ </g>
+ 
+                         </g> 
+</svg> 

@@ -23,7 +23,7 @@
 %%     Chapter Content    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Maximum Subarray Problem}
-\rule{\textwidth}{1pt}
+\rule{\textwidth}{1pt}\\
 Given an array of numbers (either positive or negative), we wish to calculate
 the subset of consecutive numbers whose sum is largest.
 $$A:\fbox{3}\fbox{2}\fbox{-4}\fbox{-5} \underbrace{\fbox{6}\fbox{1}\fbox{-3}\fbox{7}}_{\text{sums to } 11}
@@ -35,7 +35,6 @@ being $A[5]:A[8]$.
 \subsubsection*{Pseudocode}
 \begin{algorithm}
 \caption{Maximum Continguous Sum (\textit{Cubic})}
-\label{algorithm:MCSc}
 \begin{algorithmic}[1]
 \State $M\leftarrow 0$
 \For{$i=1$ \textbf{to} $n$}
@@ -66,7 +65,6 @@ From this, we can see this first version of our algorithm is $\Theta(n^3)$ or cu
 \setcounter{algorithm}{0}
 \begin{algorithm}
 \caption{Maximum Continguous Sum (\textit{Quadratic})}
-\label{algorithm:MCSq}
 \begin{algorithmic}[1]
 \State $M\leftarrow 0$
 \For{$i=1$ \textbf{to} $n$}
@@ -95,7 +93,6 @@ Conceptually, the maximum sum is just the previous maximum sum plus the current 
 \setcounter{algorithm}{0}
 \begin{algorithm}
 \caption{Maximum Continguous Sum (\textit{Linear})}
-\label{algorithm:MCSq}
 \begin{algorithmic}[1]
 \State $M\leftarrow 0$
 \State $S\leftarrow 0$
