@@ -24,28 +24,118 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Selection Sort}
 \rule{\textwidth}{1pt}\\
+Suppose we want to select the $k$th smallest elements from a group
+of $n$ numbers. What if we want to find the median element?
 \subsection{Pseudocode}
 \begin{algorithm}
-\caption{Selection Sort}
+\caption{Selection Sort (\textit{Recursive})}
 \begin{algorithmic}[1]
-\For{$i=n$ \textbf{ down to } $2$}
-	\State $k\leftarrow 1$
-	\For{$j=2$ \textbf{ to } $i$}
-		\If{$A[j] > A[k]$}
-			\State $k\leftarrow j$
+\Function{Select}{$A,k,p,r$}
+	\State $s\leftarrow$ \Call{approximate\_median}{$A,p,r$}
+	\State $q\leftarrow$ \Call{partition}{$A,p,r,s$}
+	\If{$k<q-p+1$}
+		\State\Call{Select}{$A,p,q-1,l$}
+	\ElsIf{$k > q-p+1$}
+		\State\Call{Select}{$A,q+1, r, k-(q-p+1)$}
+	\Else
+		\State\Return{$q$}
+	\EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+\setcounter{algorithm}{10}
+\begin{algorithm}
+\caption{Selection Sort (\textit{Non-Recursive})}
+\begin{algorithmic}[1]
+\Function{Select}{$A,k$}
+	\State $p\leftarrow 1$
+	\State $r\leftarrow n$
+	\Repeat
+		\State $s\leftarrow$\Call{approximate\_median}{$A,p,r$}
+		\State $q\leftarrow$\Call{partition}{$A,p,r,s$}
+		\If{$k<q$} $r\leftarrow q-1$
+		\ElsIf{$k>q$} $p\leftarrow q+1$
 		\EndIf
-	\EndFor
-	\State $A[k]\leftrightarrow A[i]$
-\EndFor
+	\Until{$k=q$}
+	\Return{$q$}
+\EndFunction
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Analysis of Comparisons}
-The number of comparisons is constant regardless of the state of the array.
-$$\sum_{i=2}^n \sum_{j=2}^i 1 = \sum_{i=2}^n (i-1) = \frac{(n-1)}{n}$$
+\noindent Take an approximate median of the list, partition with this
+approximate median ($q$), then look to the left or right
+depending on how $k$ compares to the partition.
 
-\subsection{Analysis of Exchanges}
-Selection sort only performs one exchange per each iteration of the outermost loop,
-so there is a total of $n-1$ exchanges.
-
+\subsection{Analysis}
+\subsubsection*{Worst Case}
+Just like all the other bad quadratic sorting algorithms, selection sort
+in the worst case results in $n(n-1)$ comparisons
+\subsubsection*{Best Case}
+If we assume that our median is the true median or that our approximate median
+is close enough we have the reccurence
+\begin{align*}
+	T(n) &= T\left(\frac{n}{2}\right) + n-1 \hspace{3mm} T(1) = 0\\
+	&= (n-1) + \left(\frac{n}{2}-1\right) + \left(\frac{n}{4}-1\right) + \cdots \\
+	&\approx 2n
+\end{align*}
+So best case we have $\approx 2n$ comparisons with the assumption that the
+pivot is exactly in the middle.
+\subsubsection*{Average Case}
+Assume the average case occurs at either the $\frac{1}{4}$ mark or the
+$\frac{3}{4}$ mark (similar to quicksort). Under this assumption we can write down
+the recurrence (we assume a pessimistic approach in that we always choose the larger side)
+\begin{align*}
+	T(n) &= T\left(\frac{3n}{4}\right) + n-1 \hspace{3mm} T(1) = 0 \\
+	&= (n-1) + \left(\frac{3}{4}n -1\right) + \left(\left(\frac{3}{4}\right)^2 n-1\right) + \cdots \\\
+	&= n\left[1+\left(\frac{3}{4}\right)+ \left(\frac{3}{4}\right)^2 + \cdots\right] \\
+	&= n\frac{1}{1-\frac{3}{4}} = n\frac{1}{\frac{1}{4}} \\
+	&= 4n
+\end{align*}
+To find a pessimistic view (upper bound, choose the bigger side of the partition) for the average case
+we then sum over all possible pivots to get the probabalistic analysis
+\begin{align*}
+	T(n) &= \sum_{q=1}^n \frac{1}{n}T\left(\text{max}(q-1, n-q)\right) + n-1 \hspace{3mm} T(1)=0 \\
+	&=\frac{1}{n}\sum_{q=1}^n T\left(\text{max}(q-1, n-q)\right) + n-1 \\
+	&=\frac{2}{n}\sum_{q=\frac{n}{2}}^{n-1} T(q) + n-1 \hspace{5mm}\text{by change of variable}
+\end{align*}
+Then from here we guess that the algorithm is linear, more specifically we guess
+$T(n)\leq an$.
+\begin{align*}
+	T(n) &= \frac{2}{n}\sum_{q=\frac{n}{2}}^{n-1} aq + n-1\\
+	&= \frac{2a}{n}\sum_{q=\frac{n}{2}}^{n-1} q + n-1 \\
+	&= \frac{2a}{n} \left[\sum_{q=1}^{n-1}q - \sum_{q=1}^{\frac{n}{2}-1}\right] + n-1 \\
+	&= \frac{2a}{n}\left[\frac{n(n-1)}{2} - \frac{\frac{n}{2}\left(\frac{n}{2}-1\right)}{2}\right] + n-1 \\
+	&= \frac{2a}{n}\left[\frac{n^2}{2}-\frac{n}{2} - \frac{n^2}{8} + \frac{n}{4}\right] + n-1 \\
+	&= an-a-\frac{an}{4} + \frac{a}{2} + n-1 \\
+	&= \frac{3}{4}an - \frac{a}{2}+ n-1 \\
+	&= \left(\frac{3}{4}a + 1\right)n - \frac{a}{2} - 1 \hspace{5mm}\text{for induction to work we need $\frac{3}{4}a + 1\leq an$} \\
+	T(n) &\approx 4n
+\end{align*}
+\subsection{Finding Median}
+For this method we will try finding the explicit median to try to get to
+best case scenario from above. 
+\begin{enumerate}[1.]
+	\item Put the elements into a $5\times \frac{n}{5}$ grid.
+	\item Find the median of each column.\hfill $\frac{10n}{5}=2n$ comparisons
+	\item Within each column move the small elements in the top, large elements in the bottom and median to the middle.
+	\item Find the median of medians.\hfill $T\left(\frac{n}{5}\right)$ comparisons
+	\item Move the columns with small medians to the left, large medians to the right, and the median of medians to the middle.
+	\item Partition using median of medians as pivot.\hfill $n-1$ comparisons
+	\item Recursively call algorithm on proper side.\hfill $T\left(\frac{7n}{10}\right)$ comparisons
+\end{enumerate}
+Then, all together we have the recurrence
+\begin{align*}
+	T(n) &\leq 2n+ T\left(\frac{n}{5}\right) + n-1 +T\left(\frac{7n}{10}\right)\hspace{5mm}T(1) =0 \\
+	&= T\left(\frac{n}{5}\right) + T\left(\frac{7n}{10}\right) + 3n - 1
+\end{align*}
+Then from here we guess that the algorithm is linear, more specifically we guess $T(n)\leq an$.
+\begin{align*}
+	T(n) &= a\frac{n}{5} + a\frac{7n}{10} + 3n-1 \\
+	&= a\frac{9}{10}n + 3n - 1 \\
+	&= \left(\frac{9}{10}a +3\right)n - 1 \hspace{3mm}\text{for induction to work we need $\frac{9}{10}a +3\leq an$} \\
+	T(n) &\approx 30n
+\end{align*}
+So we see that for $n\geq2^{30}$ finding the median of medians will be beneficial,
+but this approach can be extended to a grid of $7\times\frac{n}{7}$ or even $9\times\frac{n}{9}$
+which results in increasingly more efficient times.
 \end{document}

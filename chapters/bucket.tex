@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+\usepackage{pgfplots}
+
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bucket Sort}
+\rule{\textwidth}{1pt}\\
+\subsection{Pseudocode}
+Note: Assume you have an uniformly distributed array of real numbers
+between 0 and 1. Create $n$ buckets.
+\begin{algorithm}
+\caption{Bucket Sort}
+\begin{algorithmic}[1]
+\State \textbf{for} $i=0$ \textbf{to} $n-1$ \textbf{do} $B[i] \leftarrow 0$
+\Comment Clear $B$
+\Statex
+\For{$i=1$ \textbf{to} $n$}
+	\State $B[\lfloor n\cdot A[i]\rfloor] \leftarrow A[i]$
+\EndFor
+\Statex
+\State Sort $B$ \Comment Can be done with any sorting algorithm
+\State Concatenate $B$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Analysis}
+On average there will be one item per bucket, and
+lucky for us it is unlikely that a bucket will have a lot of 
+elements in it. So average case, bucket sort is $O(n)$ or \textit{linear} time.
+
+\subsection{Modifications}
+\subsubsection*{Between Two Real Numbers}
+What if we want to sort numbers between $[q, r)$?
+We can simply renormalize $B$ like so.\\
+\rule{\textwidth}{.5pt}\\
+\begin{algorithmic}[1]
+\State \textbf{for} $i=0$ \textbf{to} $n-1$ \textbf{do} $B[i] \leftarrow 0$
+\Comment Clear $B$
+\Statex
+\For{$i=1$ \textbf{to} $n$}
+	\State $B\left[\left\lfloor  \frac{n\cdot A[i]}{r - q} \right\rfloor\right] \leftarrow A[i]$
+\EndFor
+\Statex
+\State Sort $B$ \Comment Can be done with any sorting algorithm
+\State Concatenate $B$
+\end{algorithmic}
+\rule{\textwidth}{.5pt}\\
+\subsubsection*{Nonuniform Distribution}
+What if the data is not uniformly distributed?
+We can set the buckets' spread larger and larger as it expands out from the mean.
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+	no markers, domain=0:10, samples=100,
+	axis lines*=left, xlabel=$ $, ylabel=$ $,
+	every axis y label/.style={at=(current axis.above origin),anchor=south},
+	every axis x label/.style={at=(current axis.right of origin),anchor=west},
+	height=5cm, width=12cm,
+	xtick={3, 4, 4.75,5.25,6, 7}, ytick=\empty,
+	xticklabels={,,},
+	enlargelimits=false, clip=false, axis on top,
+	grid = major
+	]
+	\addplot [very thick,cyan!50!black] {gauss(5,1)};
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\end{document}

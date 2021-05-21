@@ -13,9 +13,9 @@
 \usepackage[margin=1.75in]{geometry}
 \usepackage{algorithm, algpseudocode}
 
-\title{Introduction to Algorithms}
+\title{\textsc{Introduction to Algorithms}}
 \author{Neelam Akula}
-\date{Spring 2021}
+\date{}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -24,18 +24,22 @@
 \rfoot{Page \thepage}
 
 \begin{document}
-\makeatletter
-    \begin{titlepage}
-        \begin{center}
-            {\huge \bfseries  \@title }\\[4ex]
-            \includegraphics[width=10cm]{logo.png}\\[4ex]
-            {\large  \@author}\\[4ex] 
-            {\large \@date}
-        \end{center}
-        \vfill
-        Last Updated: \today
-    \end{titlepage}
-\makeatother
+% \makeatletter
+%     \begin{titlepage}
+%         \begin{center}
+%             {\huge \bfseries  \@title }\\[4ex]
+%             \includegraphics[width=10cm]{logo.png}\\[4ex]
+%             {\large  \@author}\\[4ex] 
+%             {\large \@date}
+%         \end{center}
+%         \vfill
+%         Last Updated: \today
+%     \end{titlepage}
+% \makeatother
+\maketitle
+\pagebreak
+{\null\vfill\small Last Updated: \today}
+\pagebreak
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%   Table of Contents    %%
@@ -67,6 +71,10 @@
 \import{chapters/}{quicksort}
 \newpage
 % LINEAR ALGORITHMS %
+\import{chapters/}{bucket}
+\newpage
+\import{chapters/}{selection}
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%    Appendix Content    %%

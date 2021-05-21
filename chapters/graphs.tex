@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,linkcolor=black,anchorcolor=black,citecolor=black,filecolor=black,menucolor=black,runcolor=black,urlcolor=blue]{hyperref}
+\usepackage[margin=1.75in]{geometry}
+\usepackage{algorithm, algpseudocode}
+\usepackage{tikz-qtree}
+\usepackage{ulem}
+\usepackage{pgfplots}
+
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+\tikzstyle{arr}=[fill=white, draw=black, shape=rectangle, scale=.85]
+\tikzstyle{cir}=[fill=white, draw=black, shape=circle, scale=.75]
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Chapter Content    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Graphs}
+\rule{\textwidth}{1pt}\\
+\subsection{Directed Graphs}
+Let $G=(V,E)$ be a directed graph. Let $n$ be the number of vertices and $m$
+be the number of edges. We can represent $G$ in either an adjancency
+matrix or adjancency list. Observe then the time needed for these problems.
+\subsubsection*{Adjacency Matrix}
+An Ajaceny Matrix takes up $\Theta(n^2)$ in memory.
+The time it takes to determine if $(x,y)$ is an edge in $G$ is $\Theta(1)$.
+To determine \textit{all} edges in $G$ it takes $\Theta(n^2)$ time.
+
+\subsubsection*{Adjacency List}
+An Adjacency List takes up $\Theta(m+n)$ in memory.
+The time it takes to determine if $(x,y)$ is an edge in $G$ is $\Theta(n)$.
+To determine \textit{all} edges in $G$ it takes $\Theta(m+n)$ time.
+
+\end{document}
